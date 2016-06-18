@@ -1,0 +1,21 @@
+@import "components/variable";
+@import "components/clock";
+@import "components/control";
+@import "components/text-title";
+$spec: 4rem;
+
+.page-title{
+  margin-top: $spec;
+  margin-bottom: $spec;
+}
+
+.menu>li>a { display:inline; }
+
+.top-bar,ul.menu {
+  background-color:#333333;
+  color: white;
+}
+
+.active {
+  font-weight : bold;
+}
