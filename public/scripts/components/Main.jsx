@@ -1,16 +1,21 @@
 var React = require('react');
 
-var Nav = require('./Nav')
+var TodoList = require('./TodoList');
 
 var MainComponent = React.createClass({
+  getInitialState:function () {
+    return {
+      todolist:[{id:1,todo: 'play computer'},{id:2,todo: 'play game'}]
+    }
+  },
   render: function () {
+
     return (
       <div>
-        <Nav/>
         <div className="row">
           <div className="small-centered medium-6 large-4 columns">
-
-          {this.props.children}
+            <h2>hiiii</h2>
+            <TodoList todolist={this.state.todolist}/>
           </div>
         </div>
       </div>
