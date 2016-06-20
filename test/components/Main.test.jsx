@@ -4,10 +4,17 @@ var expect = require('expect');
 var $ = require('jQuery');
 var TestUtils = require('react-addons-test-utils');
 
-var Main = require('../../public/scripts/components/Main')
+var MainComponent = require('../../public/scripts/components/Main')
 
-describe('Main',()=>{
+describe('MainComponent',()=>{
   it('Should be Exist',()=>{
-    expect(Main).toExist();
+    expect(MainComponent).toExist();
+  })
+
+  it('Should add todo handleSendTodo',()=>{
+    var main = TestUtils.renderIntoDocument(<MainComponent/>);
+    main.setState({todolist:[]});
+    main.handleSendTodo('play game');
+    expect(main.state.todolist[0].todo).toBe('play game')
   })
 })

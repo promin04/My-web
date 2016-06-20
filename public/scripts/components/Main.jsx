@@ -16,7 +16,9 @@ var MainComponent = React.createClass({
     var {todolist} = this.state;
     var totalLength = todolist.length;
     var forPush = {id:totalLength+1,todo:newTodo}
-    todolist.push(forPush);
+    this.setState({
+      todolist:[...this.state.todolist,forPush]
+    })
     console.log(todolist);
   }
   ,
