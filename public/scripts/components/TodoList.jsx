@@ -6,9 +6,8 @@ var TodoList = React.createClass({
 
   todoForms : function () {
     var {todolist} = this.props;
-    return  todolist.map(function (todo) {return <Todo key={todo.id} id={todo.id} todo={todo.todo}/>})
-  }
-  ,
+    return  todolist.map((todo)=>{return <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>})
+  },
   render: function () {
     var {todolist} = this.props;
 

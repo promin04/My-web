@@ -17,4 +17,18 @@ describe('MainComponent',()=>{
     main.handleSendTodo('play game');
     expect(main.state.todolist[0].todo).toBe('play game')
   })
+
+  it('Should run handleOnClickTodo ',()=>{
+    var main = TestUtils.renderIntoDocument(<MainComponent/>);
+    main.setState({todolist:[{
+      id:1,
+      todo: 'play computer',
+      completed: false
+    }]
+  });
+
+    main.handleOnClickTodo(1);
+    expect(main.state.todolist[0].completed).toBe(true);
+  })
+
 })
