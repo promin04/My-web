@@ -3,23 +3,25 @@ var React = require('react');
 var TodoList = require('./TodoList');
 var AddTodo = require('./AddTodo');
 var SearchForm = require('./SearchForm');
+var LocalstoringAPI = require('../../api/LocalstoringAPI');
 
 var MainComponent = React.createClass({
   getInitialState:function () {
     return {
       showCompleted:false,
       searchText: '',
-      todolist:[{
-                id:1,
-                todo: 'play computer',
-                completed: true
-                },{
-                id:2,
-                todo: 'play game',
-                completed: false
-                }]
+      todolist: LocalstoringAPI.getDataLocal()
+
     }
   },
+  componentDidUpdate: function (prevProps,prevState) {
+    if(this.state.todolist.length!=prevState.todolist.length){
+      LocalstoringAPI.saveToLocal(this.state.todolist);
+    }
+
+
+  }
+  ,
   handleSendTodo: function (newTodo) {
     var {todolist} = this.state;
     var totalLength = todolist.length;
@@ -31,7 +33,7 @@ var MainComponent = React.createClass({
     this.setState({
       todolist:[...this.state.todolist,forPush]
     })
-    
+
   },
   handleSearch: function (showCompleted,searchText) {
     this.setState({
