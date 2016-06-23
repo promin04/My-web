@@ -3,20 +3,20 @@ var React = require('react');
 var TodoList = require('./TodoList');
 var AddTodo = require('./AddTodo');
 var SearchForm = require('./SearchForm');
-var LocalstoringAPI = require('../../api/LocalstoringAPI');
+var todoAPI = require('../../api/todoAPI');
 
 var MainComponent = React.createClass({
   getInitialState:function () {
     return {
       showCompleted:false,
       searchText: '',
-      todolist: LocalstoringAPI.getDataLocal()
+      todolist: todoAPI.getDataLocal()
 
     }
   },
   componentDidUpdate: function (prevProps,prevState) {
     if(this.state.todolist.length!=prevState.todolist.length){
-      LocalstoringAPI.saveToLocal(this.state.todolist);
+      todoAPI.saveToLocal(this.state.todolist);
     }
 
 
@@ -55,14 +55,15 @@ var MainComponent = React.createClass({
   }
   ,
   render: function () {
-
+    var {todolist,showCompleted,searchText} = this.state;
+    var filterTodolist = todoAPI.filterTodolist(todolist,showCompleted,searchText);
     return (
       <div>
         <div className="row">
           <div className="small-centered medium-6 large-4 columns">
-            <h2>hiiii</h2>
+            <h2 className="page-title">hiiii</h2>
             <SearchForm onSearch={this.handleSearch}/>
-            <TodoList todolist={this.state.todolist} onToggle={this.handleOnClickTodo}/>
+            <TodoList todolist={filterTodolist} onToggle={this.handleOnClickTodo}/>
             <AddTodo handleSendTodo={this.handleSendTodo}/>
           </div>
         </div>
