@@ -4,16 +4,14 @@ var Todo = require('./Todo')
 
 var TodoList = React.createClass({
 
-  todoForms : function () {
-    var {todolist} = this.props;
-    return  todolist.map((todo)=>{return <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>})
-  },
+
   render: function () {
     var {todolist} = this.props;
-
+    var todoForms =  todolist.map((todo)=>{return <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>})
+    var renderTodo = todoForms.length==0?'nothingTodo':todoForms;
     return (
       <div>
-          {this.todoForms()}
+          {renderTodo}
       </div>
     )
   }

@@ -1,4 +1,5 @@
 var React = require('react');
+var moment = require('moment');
 
 var TodoList = require('./TodoList');
 var AddTodo = require('./AddTodo');
@@ -28,7 +29,9 @@ var MainComponent = React.createClass({
     var forPush = {
                   id: totalLength+1,
                   todo: newTodo,
-                  completed: false
+                  completed: false,
+                  createAt: moment().unix(),
+                  completedAt: null
                   }
     this.setState({
       todolist:[...this.state.todolist,forPush]
@@ -45,23 +48,26 @@ var MainComponent = React.createClass({
     var todolist = this.state.todolist;
     var updateTodo = todolist.map((todo)=>{
                       if(todo.id==id){
-                        todo.completed = !todo.completed
+                        todo.completed = !todo.completed;
+                        todo.completedAt = todo.completed?moment().unix():null;
                       }
                       return todo;
                       })
     this.setState({
+
       todolist: updateTodo
       });
   }
   ,
   render: function () {
+
     var {todolist,showCompleted,searchText} = this.state;
     var filterTodolist = todoAPI.filterTodolist(todolist,showCompleted,searchText);
     return (
       <div>
         <div className="row">
-          <div className="small-centered medium-6 large-4 columns">
-            <h2 className="page-title">hiiii</h2>
+          <div className="small-centered medium-6 large-5 columns">
+            <h2 className="page-title">Todo App</h2>
             <SearchForm onSearch={this.handleSearch}/>
             <TodoList todolist={filterTodolist} onToggle={this.handleOnClickTodo}/>
             <AddTodo handleSendTodo={this.handleSendTodo}/>

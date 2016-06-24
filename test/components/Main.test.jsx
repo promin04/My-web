@@ -16,19 +16,41 @@ describe('MainComponent',()=>{
     main.setState({todolist:[]});
     main.handleSendTodo('play game');
     expect(main.state.todolist[0].todo).toBe('play game')
+    expect(main.state.todolist[0].createAt).toBeA('number')
   })
 
-  it('Should run handleOnClickTodo ',()=>{
+  it('Should run handleOnClickTodo incomplete to completed',()=>{
     var main = TestUtils.renderIntoDocument(<MainComponent/>);
     main.setState({todolist:[{
       id:1,
       todo: 'play computer',
-      completed: false
+      completed: false,
+      createAt:0,
+      completedAt: null
     }]
   });
-
+    expect(main.state.todolist[0].completed).toBe(false);
     main.handleOnClickTodo(1);
     expect(main.state.todolist[0].completed).toBe(true);
+    expect(main.state.todolist[0].completedAt).toBeA('number')
+
+  })
+
+  it('Should run handleOnClickTodo completed to incomplete',()=>{
+    var main = TestUtils.renderIntoDocument(<MainComponent/>);
+    main.setState({todolist:[{
+      id:1,
+      todo: 'play computer',
+      completed: true,
+      createAt:0,
+      completedAt: 221
+    }]
+  });
+    expect(main.state.todolist[0].completed).toBe(true);
+    main.handleOnClickTodo(1);
+    expect(main.state.todolist[0].completed).toBe(false);
+    expect(main.state.todolist[0].completedAt).toNotExist();
+
   })
 
 })
