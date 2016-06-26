@@ -9,10 +9,13 @@ var SearchForm = React.createClass({
   }
   ,
   render:function () {
-    return (<div>
+    return (
+    <div className="container__header">
+
     <input type="search" ref="searchInput" placeholder="Search todos" onChange={this.handleSearch}/>
-    <input type="checkbox" ref="showCompleted" onChange={this.handleSearch}/>
-    Show completed todos
+    <input type="checkbox" id="show" ref="showCompleted" onChange={this.handleSearch}/>
+    <label htmlFor="show">Show completed</label>
+
     </div>)
 
   }

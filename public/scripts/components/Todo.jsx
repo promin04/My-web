@@ -5,16 +5,16 @@ var Todo = React.createClass({
 
   render: function () {
     var {id,todo,completed,createAt,completedAt}=this.props;
+    var status=completed?"todo-completed":"todo";
+
     var renderDate = ()=>{
-
-
       if(completed){
       var message='Completed at '
-      var completedTime = moment.unix(createAt).format('DD MMM hh:mm A')
+      var completedTime = moment.unix(createAt).format('DD MMM @ hh:mm A')
       return message+completedTime;
     }else {
       var message = 'Create at ';
-      var createTime = moment.unix(createAt).format('DD MMM hh:mm A')
+      var createTime = moment.unix(createAt).format('DD MMM @ hh:mm A')
       return message+createTime;
     }
 
@@ -23,11 +23,12 @@ var Todo = React.createClass({
 
 
     return (
-      <div onClick={()=>{this.props.onToggle(id)}}>
+      <div className={status} onClick={()=>{this.props.onToggle(id)}}>
           <input type="checkbox" checked={completed} onChange={()=>{}}/>
-           {todo}
-           <p>{renderDate()}</p>
-
+          <div>
+            <p>{todo}</p>
+            <p className="todo__subtext">{renderDate()}</p>
+          </div>
       </div>
 
     )

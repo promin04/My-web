@@ -19,4 +19,12 @@ describe('TodoList',()=>{
 
     expect(findTodosCom.length).toBe(todos.length);
   })
+
+  it('Should render Nothing To Do if todolist empty',()=>{
+    var todos =[];
+    var todolist = TestUtils.renderIntoDocument(<TodoList todolist={todos}/>);
+    var el = ReactDOM.findDOMNode(todolist);
+    var $el = $(el).find("h3").text();
+    expect($el).toBe("Nothing To Do");
+  })
 })

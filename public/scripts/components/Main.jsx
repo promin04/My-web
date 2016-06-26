@@ -67,10 +67,12 @@ var MainComponent = React.createClass({
       <div>
         <div className="row">
           <div className="small-centered medium-6 large-5 columns">
+            <div className="container">
             <h2 className="page-title">Todo App</h2>
             <SearchForm onSearch={this.handleSearch}/>
             <TodoList todolist={filterTodolist} onToggle={this.handleOnClickTodo}/>
             <AddTodo handleSendTodo={this.handleSendTodo}/>
+            </div>
           </div>
         </div>
       </div>
