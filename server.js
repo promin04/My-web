@@ -8,6 +8,14 @@ app.get('/',function (req,res) {
     res.sendFile('./index.html')
 })
 
+app.use(function (req,res) {
+  if (req.url === '/favicon.ico') {
+    res.writeHead(200, {'Content-Type': 'image/x-icon'} );
+    res.end();
+    return;
+  }
+})
+
 app.use(function (req,res,next) {
   if (req.headers['x-forwarded-proto']==='http') {
     next();
