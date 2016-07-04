@@ -1,77 +1,23 @@
 var React = require('react');
 var moment = require('moment');
 
-var TodoList = require('./TodoList');
-var AddTodo = require('./AddTodo');
-var SearchForm = require('./SearchForm');
-var todoAPI = require('../../api/todoAPI');
+import TodoList from './TodoList';
+import AddTodo from './AddTodo';
+import SearchForm from './SearchForm';
+
 
 var MainComponent = React.createClass({
-  getInitialState:function () {
-    return {
-      showCompleted:false,
-      searchText: '',
-      todolist: todoAPI.getDataLocal()
-
-    }
-  },
-  componentDidUpdate: function (prevProps,prevState) {
-    if(this.state.todolist.length!=prevState.todolist.length){
-      todoAPI.saveToLocal(this.state.todolist);
-    }
-
-
-  }
-  ,
-  handleSendTodo: function (newTodo) {
-    var {todolist} = this.state;
-    var totalLength = todolist.length;
-    var forPush = {
-                  id: totalLength+1,
-                  todo: newTodo,
-                  completed: false,
-                  createAt: moment().unix(),
-                  completedAt: null
-                  }
-    this.setState({
-      todolist:[...this.state.todolist,forPush]
-    })
-
-  },
-  handleSearch: function (showCompleted,searchText) {
-    this.setState({
-      showCompleted: showCompleted,
-      searchText: searchText.toLowerCase()
-    });
-  },
-  handleOnClickTodo: function (id) {
-    var todolist = this.state.todolist;
-    var updateTodo = todolist.map((todo)=>{
-                      if(todo.id==id){
-                        todo.completed = !todo.completed;
-                        todo.completedAt = todo.completed?moment().unix():null;
-                      }
-                      return todo;
-                      })
-    this.setState({
-
-      todolist: updateTodo
-      });
-  }
-  ,
   render: function () {
 
-    var {todolist,showCompleted,searchText} = this.state;
-    var filterTodolist = todoAPI.filterTodolist(todolist,showCompleted,searchText);
     return (
       <div>
         <div className="row">
           <div className="small-centered medium-6 large-5 columns">
             <div className="container">
             <h2 className="page-title">Todo App</h2>
-            <SearchForm onSearch={this.handleSearch}/>
-            <TodoList todolist={filterTodolist} onToggle={this.handleOnClickTodo}/>
-            <AddTodo handleSendTodo={this.handleSendTodo}/>
+            <SearchForm/>
+            <TodoList/>
+            <AddTodo/>
             </div>
           </div>
         </div>

@@ -8,61 +8,7 @@ describe('todoAPI',()=>{
   it('todoAPI should be exist',()=>{
     expect(todoAPI).toExist();
   })
-    describe('saveToLocal',()=>{
-      it('Should save TodoList To localStorage',()=>{
-        var todo = [{
-            id:1,
-            todo:'play game',
-            completed: false
-        }]
-        todoAPI.saveToLocal(todo);
 
-    var result = JSON.parse(localStorage.getItem('todo'));
-
-    expect(result).toEqual(todo);
-      })
-      it('Should not save invalid todo',()=>{
-        var badtodo = {
-            id:2,
-            todo:'play football',
-            completed: false
-        };
-        todoAPI.saveToLocal(badtodo);
-
-    var result = JSON.parse(localStorage.getItem('todo'));
-
-    expect(result).toEqual(null);
-      })
-
-    })
-
-    describe('getDataLocal',()=>{
-      it('Should get TodoList from localStorage',()=>{
-        var todo = [{
-            id:1,
-            todo:'play game',
-            completed: false
-        }]
-        var todoStr = JSON.stringify(todo);
-        localStorage.setItem('todo',todoStr)
-
-        var result = todoAPI.getDataLocal();
-
-    expect(result).toEqual(todo);
-      })
-      it('Should get [] when data invalid',()=>{
-        var badtodo = {
-            id:2,
-            todo:'play football',
-            completed: false
-        };
-        var badtodoStr = JSON.stringify(badtodo);
-        localStorage.setItem('todo',badtodoStr)
-    var result = todoAPI.getDataLocal();
-    expect(result).toEqual([]);
-      })
-
-    })
 
     describe('filterTodolist',()=>{
         var todolist = [{

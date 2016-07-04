@@ -1,56 +1,29 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var {Provider} = require('react-redux');
 var expect = require('expect');
 var $ = require('jQuery');
 var TestUtils = require('react-addons-test-utils');
 
+var configureStore = require('../../app/store/configureStore')
 var MainComponent = require('../../public/scripts/components/Main')
+var {TodoList} = require('../../public/scripts/components/TodoList')
 
 describe('MainComponent',()=>{
   it('Should be Exist',()=>{
     expect(MainComponent).toExist();
   })
 
-  it('Should add todo handleSendTodo',()=>{
-    var main = TestUtils.renderIntoDocument(<MainComponent/>);
-    main.setState({todolist:[]});
-    main.handleSendTodo('play game');
-    expect(main.state.todolist[0].todo).toBe('play game')
-    expect(main.state.todolist[0].createAt).toBeA('number')
-  })
+  it('Should render TodoList',()=>{
+    var store = configureStore.configure();
+    var provider = TestUtils.renderIntoDocument(
+      <Provider store={store}>
+        <MainComponent/>
+      </Provider>
+    );
+    var mainComponent = TestUtils.scryRenderedComponentsWithType(provider,MainComponent)[0];
+    var todoList = TestUtils.scryRenderedComponentsWithType(mainComponent,TodoList);
 
-  it('Should run handleOnClickTodo incomplete to completed',()=>{
-    var main = TestUtils.renderIntoDocument(<MainComponent/>);
-    main.setState({todolist:[{
-      id:1,
-      todo: 'play computer',
-      completed: false,
-      createAt:0,
-      completedAt: null
-    }]
+    expect(todoList.length).toEqual(1);
   });
-    expect(main.state.todolist[0].completed).toBe(false);
-    main.handleOnClickTodo(1);
-    expect(main.state.todolist[0].completed).toBe(true);
-    expect(main.state.todolist[0].completedAt).toBeA('number')
-
-  })
-
-  it('Should run handleOnClickTodo completed to incomplete',()=>{
-    var main = TestUtils.renderIntoDocument(<MainComponent/>);
-    main.setState({todolist:[{
-      id:1,
-      todo: 'play computer',
-      completed: true,
-      createAt:0,
-      completedAt: 221
-    }]
-  });
-    expect(main.state.todolist[0].completed).toBe(true);
-    main.handleOnClickTodo(1);
-    expect(main.state.todolist[0].completed).toBe(false);
-    expect(main.state.todolist[0].completedAt).toNotExist();
-
-  })
-
-})
+});
