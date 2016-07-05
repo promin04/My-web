@@ -110,7 +110,6 @@ describe('Actions',()=>{
 
       store.dispatch(actions.startGetTodo()).then(
         ()=>{
-          //console.log(store.getActions()[0]);
           expect(store.getActions()[0]).toInclude({type:'getTodo'})
           done()
         },done
