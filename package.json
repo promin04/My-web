@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "set NODE_ENV=test&& karma start",
-    "build": "webpack",
-    "start": "npm run build && node server.js"
+    "build": "webpack -p",
+    "start": "npm run build&& node server.js"
   },
   "author": "Prommin",
   "license": "",
