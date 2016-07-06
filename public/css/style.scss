@@ -1,15 +1,10 @@
 @import "./components/variable";
 @import "./components/container";
 @import "./components/todo";
-
+@import "./components/page-actions";
+@import "./components/callout-auth";
 .page-title{
   margin-top: 3rem;
   margin-bottom: 2rem;
   text-align: center;
-}
-
-h3{
-  color: $light-color;
-  text-align: center;
-  margin: 2rem auto;
 }

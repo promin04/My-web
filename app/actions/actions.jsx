@@ -1,6 +1,5 @@
 var moment = require('moment');
-
-import firebase,{firebaseRef} from '../firebase/index'
+import firebase,{firebaseRef,githubProvider} from '../firebase/index'
 
 export var searchText = (text) =>{
                                   return { type:"searchText",
@@ -80,3 +79,20 @@ export var getTodo = (todo) =>{
                                            todo
                                          }
 };
+
+export var Login = ()=>{
+  return (dispatch,getState)=>{
+    return firebase.auth().signInWithPopup(githubProvider).then(
+      (data)=>{console.log("login",data)},
+      (error)=>{console.log("fail",error)}
+  )
+  }
+}
+
+export var Logout = ()=>{
+  return (dispatch,getState)=>{
+    return firebase.auth().signOut().then(()=>{
+      console.log('Log Out!!!');
+    })
+  }
+}

@@ -6,7 +6,8 @@ var actions = require('../../app/actions/actions')
 var store = require('../../app/store/configureStore').configure();
 var todoAPI = require('../api/todoAPI');
 import firebase,{firebaseRef} from '../../app/firebase/index';
-var MainComponent = require('./components/Main');
+var MainComponent = require('./components/Main').default;
+var Login = require('./components/Login').default
 
 require('style!css!foundation-sites/dist/foundation.min.css');
 $(document).foundation();
@@ -18,7 +19,14 @@ store.dispatch(actions.startGetTodo());
 
 ReactDOM.render(
   <Provider store={store}>
-  <MainComponent/>
+  <Router history={hashHistory}>
+    <Route path='/'>
+      <IndexRoute component={MainComponent}/>
+      <Route path='login' component={Login}/>
+    </Route>
+
+  </Router>
+
   </Provider>
 
 

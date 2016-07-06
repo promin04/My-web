@@ -6,7 +6,7 @@ var $ = require('jQuery');
 var TestUtils = require('react-addons-test-utils');
 
 var configureStore = require('../../app/store/configureStore')
-var MainComponent = require('../../public/scripts/components/Main')
+import {MainComponent} from '../../public/scripts/components/Main';
 var {TodoList} = require('../../public/scripts/components/TodoList')
 
 describe('MainComponent',()=>{
