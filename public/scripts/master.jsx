@@ -17,6 +17,7 @@ require('style!css!sass!../css/style.scss');
 firebase.auth().onAuthStateChanged((user)=>{
   if(user){
     store.dispatch(actions.handleLogin(user.uid));
+    store.dispatch(actions.startGetTodo());
     hashHistory.push('/todos');
   }else {
     store.dispatch(actions.handeLogout());
@@ -37,7 +38,7 @@ var hasUserLogin = function (nextState,replace,next) {
     }
 next();
 }
-store.dispatch(actions.startGetTodo());
+
 
 ReactDOM.render(
   <Provider store={store}>

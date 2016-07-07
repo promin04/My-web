@@ -39,8 +39,8 @@ export var TodoList_reducer = (state=[],action)=>{
                                                               }
       });
 
-      case 'getTodo': return [...action.todo
-      ];
+      case 'getTodo': return [...action.todo];
+      case 'logout' : return [];
     default: return state;
 
   }

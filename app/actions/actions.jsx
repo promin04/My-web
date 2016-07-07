@@ -19,12 +19,14 @@ export var onClickTodo = (id,update) =>{
 };
 
 export var startOnClickTodo = (id,completed) =>{
-  return (dispatch)=>{
+  return (dispatch,getState)=>{
                       var update = {
                                 completed:!completed,
                                 completedAt:completed?null:moment().unix()
                       }
-                      var callback = firebaseRef.child('todolist/'+id)
+                      var uid = getState().auth.uid;
+
+                      var callback = firebaseRef.child('users/'+uid+'/todolist/'+id)
                       .update(update);
                       return callback.then(()=>{
                                                 dispatch(onClickTodo(id,update));
@@ -41,14 +43,15 @@ export var addTodo = (todo) =>{
 };
 
 export var startAddTodo = (text)=>{
-  return (dispatch)=>{
+  return (dispatch,getState)=>{
     var todo = {
                 todo: text,
                 completed: false,
                 createAt: moment().unix(),
                 completedAt: null
     };
-    var pushCallback=firebaseRef.child('todolist').push(todo);
+    var uid = getState().auth.uid;
+    var pushCallback=firebaseRef.child('users/'+uid+'/todolist').push(todo);
     return pushCallback.then(()=>{
                             dispatch(addTodo({...todo,id:pushCallback.key}));
     })
@@ -56,8 +59,9 @@ export var startAddTodo = (text)=>{
 }
 
 export var startGetTodo =()=>{
-  return(dispatch)=>{
-    return firebaseRef.child('todolist').once("value",(snapshot)=>{
+  return(dispatch,getState)=>{
+    var uid = getState().auth.uid;
+    return firebaseRef.child('users/'+uid+'/todolist').once("value",(snapshot)=>{
       var RawTodo = snapshot.val() || {} ;
       var TodoList =[];
       Object.keys(RawTodo).forEach((TodoId)=>{
