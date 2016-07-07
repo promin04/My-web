@@ -96,3 +96,15 @@ export var Logout = ()=>{
     })
   }
 }
+
+export var handleLogin = (uid)=>{
+    return {type: 'login',
+            uid
+    }
+}
+
+export var handeLogout = ()=>{
+    return {
+      type:'logout'
+    }
+}

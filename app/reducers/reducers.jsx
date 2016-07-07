@@ -45,3 +45,15 @@ export var TodoList_reducer = (state=[],action)=>{
 
   }
 }
+
+export var auth_reducer = (state={},action)=>{
+  switch (action.type) {
+    case 'login': return {uid:action.uid};
+
+    case 'logout': return {};
+
+
+    default: return state;
+
+  }
+}
