@@ -1,6 +1,7 @@
 var React = require('react');
 var {connect} = require('react-redux');
 var actions = require('../../../app/actions/actions');
+var OtherButton = require('./OtherButton').default;
 export var AddTodo = React.createClass({
   onSendTodo:function (e) {
     e.preventDefault();
@@ -19,9 +20,9 @@ export var AddTodo = React.createClass({
       <div className="container__footer">
           <form onSubmit={this.onSendTodo}>
             <input type="text" ref="todo" placeholder='Enter todo something.'/>
-            <button className='button expanded'>Submit</button>
+            <button className='button expanded'>Add Todo</button>
           </form>
-
+          <OtherButton/>
       </div>
     )
   }

@@ -14,16 +14,21 @@ require('style!css!foundation-sites/dist/foundation.min.css');
 $(document).foundation();
 require('style!css!sass!../css/style.scss');
 
+
+
 firebase.auth().onAuthStateChanged((user)=>{
   if(user){
     store.dispatch(actions.handleLogin(user.uid));
     store.dispatch(actions.startGetTodo());
     hashHistory.push('/todos');
+
   }else {
     store.dispatch(actions.handeLogout());
     hashHistory.push('/');
   }
 })
+
+
 
 var noUserLogin = function (nextState,replace,next) {
     if(!firebase.auth().currentUser){

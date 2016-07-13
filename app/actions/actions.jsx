@@ -25,14 +25,16 @@ export var startOnClickTodo = (id,completed) =>{
                                 completedAt:completed?null:moment().unix()
                       }
                       var uid = getState().auth.uid;
-
                       var callback = firebaseRef.child('users/'+uid+'/todolist/'+id)
                       .update(update);
                       return callback.then(()=>{
                                                 dispatch(onClickTodo(id,update));
+                                                dispatch(completedCount(getState().todolist));
+
                       },(error)=>{
                                   console.log('Cannot update completed state',error);
                                 })
+
   }
 }
 
@@ -48,7 +50,7 @@ export var startAddTodo = (text)=>{
                 todo: text,
                 completed: false,
                 createAt: moment().unix(),
-                completedAt: null
+                completedAt: null            
     };
     var uid = getState().auth.uid;
     var pushCallback=firebaseRef.child('users/'+uid+'/todolist').push(todo);
@@ -71,7 +73,8 @@ export var startGetTodo =()=>{
         };
         TodoList.push(todo);
       })
-      dispatch(getTodo(TodoList))
+      dispatch(getTodo(TodoList));
+      dispatch(completedCount(getState().todolist));
     }
   )
 
@@ -87,7 +90,8 @@ export var getTodo = (todo) =>{
 export var Login = ()=>{
   return (dispatch,getState)=>{
     return firebase.auth().signInWithPopup(githubProvider).then(
-      (data)=>{console.log("login",data)},
+      (data)=>{console.log("login",data)
+      },
       (error)=>{console.log("fail",error)}
   )
   }
@@ -102,13 +106,27 @@ export var Logout = ()=>{
 }
 
 export var handleLogin = (uid)=>{
-    return {type: 'login',
+    return {
+            type: 'login',
             uid
     }
 }
 
 export var handeLogout = ()=>{
     return {
-      type:'logout'
+            type:'logout'
     }
+}
+
+export var completedCount = (todolist)=>{
+  var count = 0;
+
+  for (var i=0;i<todolist.length;i++){
+      count=todolist[i].completed?count+1:count+0;
+  }
+  var obj = {
+              type:'count',
+              count
+  }
+  return obj;
 }

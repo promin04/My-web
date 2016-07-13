@@ -6,7 +6,10 @@ var actions = require('../../../app/actions/actions');
 export var SearchForm = React.createClass({
 
   render:function () {
-    var {dispatch,searchText,showCompleted} = this.props;
+    var {dispatch,searchText,showCompleted,completedCount} = this.props;
+    var showCountCompleted = completedCount>0?(<span className="success badge">{completedCount}</span>):null
+
+    
     return (
     <div className="container__header">
 
@@ -17,7 +20,7 @@ export var SearchForm = React.createClass({
     <input type="checkbox" id="show" ref="showCompleted" checked={showCompleted} onChange={()=>{
         dispatch(actions.showCompleted());
     }}/>
-    <label htmlFor="show">Show completed</label>
+    <label htmlFor="show">Show completed {showCountCompleted}</label>
 
     </div>)
 
@@ -27,6 +30,7 @@ export var SearchForm = React.createClass({
 export default connect((state)=>{
                                 return {
                                         showCompleted:state.showCompleted,
-                                        searchText:state.searchText
+                                        searchText:state.searchText,
+                                        completedCount:state.completedCount
                                 }
 })(SearchForm);

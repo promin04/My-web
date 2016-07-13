@@ -8,7 +8,7 @@ export var Login = React.createClass({
   },
   render:function () {
     return (
-            <div className="row">
+            <div className="row full-width">
               <div className="small-centered small-10 medium-8 large-6 columns">
                 <h3 className="page-title">Log in Component</h3>
               <div className="callout callout-auth">

@@ -3,8 +3,17 @@
 @import "./components/todo";
 @import "./components/page-actions";
 @import "./components/callout-auth";
+@import "./components/stop-actions";
 .page-title{
   margin-top: 3rem;
   margin-bottom: 2rem;
   text-align: center;
+}
+
+.button{
+  font-weight: bold;
+}
+
+.row.full-width{
+
 }

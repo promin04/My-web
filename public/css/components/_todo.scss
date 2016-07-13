@@ -1,3 +1,8 @@
+
+div.row{
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
 .todo{
       cursor: pointer;
       display: flex;
@@ -15,6 +20,26 @@
 
       &:hover{
         background: #f0f0f0;
+        span.setRemove{
+          font-weight: bold;
+          color: red;
+        }
+        span.setEdit{
+          font-weight: bold;
+          color: orange;
+        }
+      }
+
+      button.yes{
+        margin-bottom: 20px;
+        &:hover{
+                font-weight: bold;
+                color: red;
+        }
+      }
+      button.no:hover{
+                font-weight: bold;
+                color: red;
       }
 }
 
@@ -35,6 +60,7 @@
     color:$light-color;
     text-decoration: line-through;
     margin-bottom: 0;
+    cursor: pointer;
 
   }
 }
